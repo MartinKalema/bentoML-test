@@ -26,7 +26,7 @@ conda activate venv/
 pip install bentoml scikit-learn pandas
 ```
 
-- Create a download_model.py file as shown below.
+- Create a `download_model.py` file as shown below.
 
 ```python
 import bentoml
@@ -59,7 +59,7 @@ bentoml models list
 
 ```
 
-- Create a bentoML service and a model Runner by creating the file below.
+- Create a bentoML service and a model Runner by creating the file below named `service.py`.
 
 ```python
 import numpy as np
