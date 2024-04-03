@@ -82,3 +82,65 @@ def classify(input_series: np.ndarray) -> np.ndarray:
 bentoml serve service:svc
 
 ```
+
+- Build a bento
+  After the Service is ready, you can package it into a Bento by specifying a configuration YAML file (`bentofile.yaml`) that defines the build options.
+
+```bash
+service: "service:svc"  # Same as the argument passed to `bentoml serve`
+labels:
+   owner: bentoml-team
+   stage: dev
+include:
+- "*.py"  # A pattern for matching which files to include in the Bento
+python:
+   packages:  # Additional pip packages required by the Service
+   - scikit-learn
+   - pandas
+models: # The model to be used for building the Bento.
+- iris_clf:latest
+```
+
+- Run `bentoml build` in your project directory to build the Bento.
+
+```bash
+bentoml build
+```
+
+- View all available bentos
+
+```bash
+bentoml list
+
+```
+
+- Deploy a bento
+
+```bash
+bentoml containerize iris_classifier:latest
+```
+
+Next steps:
+
+- Deploy to BentoCloud:
+
+  ```bash
+  bentoml deploy iris_classifier:ojx7ofxr46mocxha -n ${DEPLOYMENT_NAME}
+  ```
+
+- Update an existing deployment on BentoCloud:
+
+  ```bash
+  bentoml deployment update --bento iris_classifier:ojx7ofxr46mocxha ${DEPLOYMENT_NAME}
+  ```
+
+- Containerize your Bento with `bentoml containerize`:
+
+  ```bash
+  bentoml containerize iris_classifier:ojx7ofxr46mocxha [or bentoml build --containerize]
+  ```
+
+- Push to BentoCloud with `bentoml push`:
+  ```bash
+  bentoml push iris_classifier:ojx7ofxr46mocxha [or bentoml build --push]
+  ```
